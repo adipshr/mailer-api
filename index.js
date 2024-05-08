@@ -1,5 +1,3 @@
-// app.js
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
@@ -10,10 +8,8 @@ const port = 3000;
 const fromEmail = "havvnapp@gmail.com";
 const emailPassword = "svfx nrpl hjql elpa";
 
-// Middleware
 app.use(bodyParser.json());
 
-// Nodemailer transporter configuration
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   auth: {
@@ -22,9 +18,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Route to handle sending emails
 app.post("/send-email", (req, res) => {
-  const { to, subject, text } = req.body;
+  const { to, subject, text } = req.query;
   const mailOptions = {
     from: fromEmail,
     to: to,
@@ -43,7 +38,6 @@ app.post("/send-email", (req, res) => {
   });
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
